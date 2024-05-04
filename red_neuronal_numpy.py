@@ -75,14 +75,15 @@ def entrenamiento(epoch, X, Y, red_neuronal, lr=0.01):
 
 N = 250
 
-datos_brasilia = circulo(num_datos=N, R=1.5, latitud=-15.7801, longitud=-47.9292)
-datos_kazajistan = circulo(num_datos=N, R=1, latitud=48.0196, longitud=66.9237)
-X = np.concatenate([datos_brasilia, datos_kazajistan])
+datos_monterrey= circulo(num_datos=N, R=1.5, latitud=25.67507, longitud=-100.31847)
+datos_paris= circulo(num_datos=N, R=1, latitud=48.85341,longitud=2.3488)
+X = np.concatenate([datos_monterrey, datos_paris])
 X = np.round(X, 3)
 print ("x", X)
 
 Y = [0] * N + [1] * N
 Y = np.array(Y).reshape(len(Y), 1)
+print(Y)
 
 neuronas = [2, 4, 8, 1]
 funciones_activacion = [relu, relu, sigmoid]
@@ -94,31 +95,39 @@ for paso in list(range(len(neuronas) - 1)):
 
 error = []
 predicciones = []
+
 for epoch in range(0, 1000):
     ronda = entrenamiento(epoch, X=X, Y=Y, red_neuronal=red_neuronal, lr=0.001)
     predicciones.append(ronda)
     temp = mse(np.round(predicciones[-1]), Y)[0]
     error.append(temp)
+    print(f'Época {epoch}:')
+    
 
-    if epoch % 100 == 0:
-        print(f'Época {epoch}:')
-        print('=== Y1 ===')
-        print(np.round(predicciones[-1][0:N]))
-        print('=== Y2 ===')
-        print(np.round(predicciones[-1][N:N * 2]))
-        print('=== Capa 1 ===')
-        print('W:')
-        print(red_neuronal[0].W)
-        print('b:')
-        print(red_neuronal[0].b)
-        print('=== Capa 2 ===')
-        print('W:')
-        print(red_neuronal[-2].W)
-        print('b:')
-        print(red_neuronal[-2].b)
-        print('=== Capa 3 ===')
-        print('W:')
-        print(red_neuronal[-1].W)
-        print('b:')
-        print(red_neuronal[-1].b)
-        print('------------------------')
+print('=== Y1 ===')
+print(np.round(predicciones[-1][0:N]))
+print('=== Y2 ===')
+print(np.round(predicciones[-1][N:N * 2]))
+
+#    if epoch % 100 == 0:
+ #       print(f'Época {epoch}:')
+        #print('=== Y1 ===')
+        #print(np.round(predicciones[-1][0:N]))
+        #print('=== Y2 ===')
+        #print(np.round(predicciones[-1][N:N * 2]))
+        #print('=== Capa 1 ===')
+        #print('W:')
+        #print(red_neuronal[0].W)
+        #print('b:')
+        #print(red_neuronal[0].b)
+        #print('=== Capa 2 ===')
+        #print('W:')
+        #print(red_neuronal[-2].W)
+        #print('b:')
+        #print(red_neuronal[-2].b)
+        #print('=== Capa 3 ===')
+        #print('W:')
+        #print(red_neuronal[-1].W)
+        #print('b:')
+        #print(red_neuronal[-1].b)
+        #print('------------------------')
